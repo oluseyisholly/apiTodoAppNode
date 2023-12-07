@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('../queries')
+const db = require('../queries/queries')
 
 const router = express.Router();
 
@@ -19,5 +19,7 @@ router.put('/activity/:id', db.updateActivityById)
 router.delete('/activity/:id', db.deleteActivityById)
 
 router.post('/createActivity', db.createActivity)
+
+router.get('/activitybyuserid', db.getActivityByUserId)
 
 module.exports = router;

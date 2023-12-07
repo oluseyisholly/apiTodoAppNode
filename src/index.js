@@ -1,11 +1,14 @@
-const express = require('express')
-var cors = require('cors')
+const express = require('express');
+var cors = require('cors');
+
 
 const bodyParser = require('body-parser')
 const api = require('./api');
+const auth = require('./api/auth')
+const verifyToken = require('./middleware/verifyToken')
 
 const app = express();
-const PORT = 3300;
+const PORT = 3300; // .env
 
 app.use(cors());
 
@@ -16,7 +19,11 @@ app.use(
   })
 )
 
-app.use('/api', api);
+app.use('/api/auth', auth);
+
+
+app.use('/api', verifyToken,  api);
+
 
 app.get('/', (req, res) =>{
     res.json({
@@ -27,5 +34,5 @@ app.get('/', (req, res) =>{
 
 
 app.listen (PORT, () => {
-    console.log('listening on port http://localhost:3300')
+    console.log(`listening on port http://localhost:${PORT}`)
 })
